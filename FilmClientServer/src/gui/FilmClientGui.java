@@ -2,9 +2,11 @@ package gui;
 
 import beans.Film;
 import bl.FilmTableModel;
+import bl.TableRenderer;
 import client.DocumentClient;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.table.TableCellRenderer;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -27,6 +29,7 @@ public class FilmClientGui extends javax.swing.JFrame {
             liCategories.setModel(lModel);
             tModel = new FilmTableModel();
             taFilms.setModel(tModel);
+            taFilms.setDefaultRenderer(Object.class, new TableRenderer());
         } catch (Exception e) {
             e.printStackTrace();
         }
