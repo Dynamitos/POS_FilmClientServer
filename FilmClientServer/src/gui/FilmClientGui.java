@@ -4,8 +4,13 @@ import beans.Film;
 import bl.FilmTableModel;
 import bl.TableRenderer;
 import client.DocumentClient;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -17,7 +22,7 @@ public class FilmClientGui extends javax.swing.JFrame {
 
     DefaultListModel<String> lModel;
     FilmTableModel tModel;
-    
+
     public FilmClientGui() {
         try {
             initComponents();
@@ -29,14 +34,28 @@ public class FilmClientGui extends javax.swing.JFrame {
             liCategories.setModel(lModel);
             tModel = new FilmTableModel();
             tbFilms.setModel(tModel);
-            tbFilms.setDefaultRenderer(Object.class, new TableRenderer());
+            //tbFilms.setDefaultRenderer(Object.class, new TableRenderer());
+            tbFilms.setDefaultRenderer(Object.class, new TableCellRenderer() {
+                @Override
+                public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                    Component c = (new DefaultTableCellRenderer())
+                            .getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                    c.setFont(new Font(Font.SANS_SERIF, Font.ITALIC, 14));
+                    if (row % 2 == 0) {
+                        c.setBackground(Color.GRAY);
+                    }
+
+                    return c;
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }
-    
-    private List<String> loadCategoriesFromFile() throws Exception{
+
+    private List<String> loadCategoriesFromFile() throws Exception {
         return DocumentClient.getKategorien();
     }
 
@@ -113,9 +132,9 @@ public class FilmClientGui extends javax.swing.JFrame {
             Document doc = DocumentClient.getDom(kategorie);
             Element root = doc.getDocumentElement();
             NodeList nodes = root.getElementsByTagName("film");
-            for(int i = 0; i < nodes.getLength(); i++) {
+            for (int i = 0; i < nodes.getLength(); i++) {
                 Node n = nodes.item(i);
-                if(n.getNodeType() == Node.ELEMENT_NODE) {
+                if (n.getNodeType() == Node.ELEMENT_NODE) {
                     Element e = (Element) n;
                     String desc = e.getElementsByTagName("description").item(0).getTextContent();
                     String lang = e.getElementsByTagName("language").item(0).getTextContent();
@@ -124,7 +143,7 @@ public class FilmClientGui extends javax.swing.JFrame {
                     int year = Integer.parseInt(e.getElementsByTagName("year").item(0).getTextContent());
                     tModel.add(new Film(title, desc, lang, price, year));
                 }
-                
+
             }
         } catch (Exception e) {
             e.printStackTrace();
