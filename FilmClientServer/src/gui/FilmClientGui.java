@@ -28,8 +28,8 @@ public class FilmClientGui extends javax.swing.JFrame {
             }
             liCategories.setModel(lModel);
             tModel = new FilmTableModel();
-            taFilms.setModel(tModel);
-            taFilms.setDefaultRenderer(Object.class, new TableRenderer());
+            tbFilms.setModel(tModel);
+            tbFilms.setDefaultRenderer(Object.class, new TableRenderer());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -52,7 +52,7 @@ public class FilmClientGui extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         liCategories = new javax.swing.JList<>();
         jScrollPane3 = new javax.swing.JScrollPane();
-        taFilms = new javax.swing.JTable();
+        tbFilms = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Film Client");
@@ -84,7 +84,7 @@ public class FilmClientGui extends javax.swing.JFrame {
 
         jSplitPane1.setLeftComponent(jScrollPane2);
 
-        taFilms.setModel(new javax.swing.table.DefaultTableModel(
+        tbFilms.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -95,7 +95,7 @@ public class FilmClientGui extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(taFilms);
+        jScrollPane3.setViewportView(tbFilms);
 
         jSplitPane1.setRightComponent(jScrollPane3);
 
@@ -171,7 +171,7 @@ public class FilmClientGui extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JList<String> liCategories;
-    private javax.swing.JTable taFilms;
     private javax.swing.JTextArea taLog;
+    private javax.swing.JTable tbFilms;
     // End of variables declaration//GEN-END:variables
 }
