@@ -1,4 +1,4 @@
-package utilityServer;
+package server.utilityServer;
 
 import java.io.IOException;
 import java.io.InputStream;

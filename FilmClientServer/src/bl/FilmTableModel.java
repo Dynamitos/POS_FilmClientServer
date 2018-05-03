@@ -7,14 +7,14 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 public class FilmTableModel extends AbstractTableModel {
-    
+
     private List<Film> filme = new ArrayList<>();
 
     public void add(Film f) {
         filme.add(f);
         super.fireTableDataChanged();
     }
-    
+
     @Override
     public int getRowCount() {
         return filme.size();
@@ -28,7 +28,7 @@ public class FilmTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Film f = filme.get(rowIndex);
-        switch(FilmEnum.values()[columnIndex]) {
+        switch (FilmEnum.values()[columnIndex]) {
             case TITLE:
                 return f.getTitle();
             case DESCRIPTION:
@@ -45,6 +45,26 @@ public class FilmTableModel extends AbstractTableModel {
     }
 
     @Override
+    public void setValueAt(Object o, int rowIndex, int columnIndex) {
+        Film f = filme.get(rowIndex);
+        Film nf = (Film) o;
+        switch(FilmEnum.values()[columnIndex]) {
+            case DESCRIPTION:
+                f.setDescription(nf.getDescription());
+        }
+    }
+
+    @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        switch (FilmEnum.values()[columnIndex]) {
+            case DESCRIPTION:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    @Override
     public String getColumnName(int column) {
         return FilmEnum.values()[column].name();
     }
@@ -53,7 +73,5 @@ public class FilmTableModel extends AbstractTableModel {
         filme.clear();
         super.fireTableDataChanged();
     }
-    
-    
-    
+
 }

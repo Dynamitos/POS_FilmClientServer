@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.text.JTextComponent;
 import org.w3c.dom.Document;
-import utilityServer.BasicServer;
+import server.utilityServer.BasicServer;
 import xml.XmlAccess;
 
 public class FilmServer extends BasicServer {
